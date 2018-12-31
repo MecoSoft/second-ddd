@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.mecosoft.poc.ddd</groupId>
 	<artifactId>second</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>Second</name>
 	<description>Second project DDD</description>
 
