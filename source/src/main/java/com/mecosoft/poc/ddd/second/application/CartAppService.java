@@ -1,7 +1,7 @@
 package com.mecosoft.poc.ddd.second.application;
 
 
-import com.mecosoft.poc.ddd.second.domain.cart.Cart;
+import com.mecosoft.poc.ddd.second.domain.model.cart.CartData;
 
 
 /**
@@ -9,7 +9,9 @@ import com.mecosoft.poc.ddd.second.domain.cart.Cart;
  */
 public interface CartAppService
 {
-    Cart defineNewCart(final String code);
+    CartData defineNewCart(final String code);
 
     void addProductToCart(String cartCode, String productCode, int quantity);
+
+    CartData getCartDate(final String code);
 }

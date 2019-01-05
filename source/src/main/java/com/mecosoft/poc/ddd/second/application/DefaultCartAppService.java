@@ -9,10 +9,11 @@
 package com.mecosoft.poc.ddd.second.application;
 
 
-import com.mecosoft.poc.ddd.second.domain.cart.Cart;
-import com.mecosoft.poc.ddd.second.domain.cart.CartRepository;
-import com.mecosoft.poc.ddd.second.domain.product.Product;
-import com.mecosoft.poc.ddd.second.domain.product.ProductRepository;
+import com.mecosoft.poc.ddd.second.domain.model.cart.Cart;
+import com.mecosoft.poc.ddd.second.domain.model.cart.CartData;
+import com.mecosoft.poc.ddd.second.domain.model.cart.CartRepository;
+import com.mecosoft.poc.ddd.second.domain.model.product.Product;
+import com.mecosoft.poc.ddd.second.domain.model.product.ProductRepository;
 import com.mecosoft.poc.ddd.second.help.annotation.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,12 +33,12 @@ public class DefaultCartAppService implements CartAppService
 
 
     @Override
-    public Cart defineNewCart(final String code)
+    public CartData defineNewCart(final String code)
     {
         Cart cart = new Cart(code);
         cartRepository.save(cart);
 
-        return cart;
+        return cart.generateSnapshot();
     }
 
 
@@ -60,5 +61,12 @@ public class DefaultCartAppService implements CartAppService
         Cart cart = carts.get(0);
         cart.add(product, quantity);
         cartRepository.save(cart);
+    }
+
+
+    @Override
+    public CartData getCartDate(String code)
+    {
+        return cartRepository.findByCode(code).get(0).generateSnapshot();
     }
 }

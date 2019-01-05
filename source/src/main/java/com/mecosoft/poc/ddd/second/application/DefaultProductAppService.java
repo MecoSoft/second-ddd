@@ -9,8 +9,9 @@
 package com.mecosoft.poc.ddd.second.application;
 
 
-import com.mecosoft.poc.ddd.second.domain.product.Product;
-import com.mecosoft.poc.ddd.second.domain.product.ProductRepository;
+import com.mecosoft.poc.ddd.second.domain.model.product.Product;
+import com.mecosoft.poc.ddd.second.domain.model.product.ProductData;
+import com.mecosoft.poc.ddd.second.domain.model.product.ProductRepository;
 import com.mecosoft.poc.ddd.second.help.annotation.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,11 +27,28 @@ public class DefaultProductAppService implements ProductAppService
 
 
     @Override
-    public Product defineNewProduct(final String code, final String name)
+    public ProductData defineNewProduct(final String code, final String name)
     {
         Product product = new Product(code, name);
         productRepository.save(product);
 
-        return product;
+        return product.generateSnapshot();
+    }
+
+
+    @Override
+    public ProductData getProductDate(String code)
+    {
+        return productRepository.findByCode(code).get(0).generateSnapshot();
+    }
+
+
+    @Override
+    public void updateProductDate(String code, ProductData data)
+    {
+        Product product = productRepository.findByCode(code).get(0);
+        product.updateAttributes(data);
+
+        productRepository.save(product);
     }
 }

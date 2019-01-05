@@ -6,24 +6,31 @@
  * agreement under which the programs have  been supplied.
  */
 
-package com.mecosoft.poc.ddd.second.domain.cart;
+package com.mecosoft.poc.ddd.second.domain.model.cart;
 
 
-import com.mecosoft.poc.ddd.second.domain.product.Product;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
+import com.mecosoft.poc.ddd.second.domain.model.product.Product;
 
 
-@Embeddable
 public class CartItemData
 {
-    @ManyToOne(optional = false)
+    protected Long id;
+
     protected Product product;
 
-    @Column(nullable = false)
-    private int quantity;
+    protected int quantity;
+
+
+    public Long getId()
+    {
+        return id;
+    }
+
+
+    protected void setId(Long id)
+    {
+        this.id = id;
+    }
 
 
     public Product getProduct()

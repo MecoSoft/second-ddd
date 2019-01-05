@@ -6,7 +6,7 @@
  * agreement under which the programs have  been supplied.
  */
 
-package com.mecosoft.poc.ddd.second.domain.product;
+package com.mecosoft.poc.ddd.second.domain.model.product;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +17,6 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long>
 {
-    @Query("SELECT p FROM Product p WHERE p.data.code = :code")
+    //@Query("SELECT p FROM Product p WHERE p.data.code = :code")
     List<Product> findByCode(String code);
 }

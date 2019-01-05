@@ -1,4 +1,4 @@
-package com.mecosoft.poc.ddd.second.domain.cart;
+package com.mecosoft.poc.ddd.second.domain.model.cart;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface CartRepository extends JpaRepository<Cart, Long>
 {
-    @Query("SELECT c FROM Cart c WHERE c.data.code = :code")
+    //@Query("SELECT c FROM Cart c WHERE c.data.code = :code")
     List<Cart> findByCode(String code);
 }

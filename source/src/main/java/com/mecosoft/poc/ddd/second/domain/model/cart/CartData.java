@@ -6,32 +6,30 @@
  * agreement under which the programs have  been supplied.
  */
 
-package com.mecosoft.poc.ddd.second.domain.product;
+package com.mecosoft.poc.ddd.second.domain.model.cart;
 
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import java.util.List;
 
 
-@Embeddable
-public class ProductData
+public class CartData
 {
-    @Column(nullable = false)
-    private String name;
+    protected Long id;
 
-    @Column(nullable = false)
-    private String code;
+    protected String code;
+
+    protected List<CartItem> items;
 
 
-    public String getName()
+    public Long getId()
     {
-        return name;
+        return id;
     }
 
 
-    public void setName(String name)
+    protected void setId(Long id)
     {
-        this.name = name;
+        this.id = id;
     }
 
 
@@ -44,5 +42,17 @@ public class ProductData
     public void setCode(String code)
     {
         this.code = code;
+    }
+
+
+    public List<CartItem> getItems()
+    {
+        return items;
+    }
+
+
+    public void setItems(List<CartItem> items)
+    {
+        this.items = items;
     }
 }
