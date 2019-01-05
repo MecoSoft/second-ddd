@@ -48,7 +48,5 @@ public class DefaultProductAppService implements ProductAppService
     {
         Product product = productRepository.findByCode(code).get(0);
         product.updateAttributes(data);
-
-        productRepository.save(product);
     }
 }

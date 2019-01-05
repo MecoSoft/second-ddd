@@ -48,7 +48,7 @@ public class Example
 
         // Change product name
         ProductData productDate = productAppService.getProductDate(PRODUCT_CODE);
-        productDate.setName("dupa");
+        productDate.setName("dupa2");
         productAppService.updateProductDate(PRODUCT_CODE, productDate);
 
         // Display name of first product from cart
