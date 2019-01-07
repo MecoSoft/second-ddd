@@ -1,7 +1,7 @@
 package com.mecosoft.poc.ddd.second.application;
 
 
-import com.mecosoft.poc.ddd.second.domain.product.Product;
+import com.mecosoft.poc.ddd.second.domain.model.product.ProductData;
 
 
 /**
@@ -9,5 +9,9 @@ import com.mecosoft.poc.ddd.second.domain.product.Product;
  */
 public interface ProductAppService
 {
-    Product defineNewProduct(final String code, final String name);
+    ProductData defineNewProduct(final String code, final String name);
+
+    ProductData getProductDate(final String code);
+
+    void updateProductDate(final String code, final ProductData data);
 }

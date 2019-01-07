@@ -6,22 +6,31 @@
  * agreement under which the programs have  been supplied.
  */
 
-package com.mecosoft.poc.ddd.second.domain.cart;
+package com.mecosoft.poc.ddd.second.domain.model.cart;
 
 
-import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 
-@Embeddable
 public class CartData
 {
-    @Column(nullable = false)
-    private String code;
+    protected Long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<CartItem> items = new ArrayList<>();
+    protected String code;
+
+    protected List<CartItem> items;
+
+
+    public Long getId()
+    {
+        return id;
+    }
+
+
+    protected void setId(Long id)
+    {
+        this.id = id;
+    }
 
 
     public String getCode()
@@ -30,9 +39,9 @@ public class CartData
     }
 
 
-    public void setCode(String name)
+    public void setCode(String code)
     {
-        this.code = name;
+        this.code = code;
     }
 
 
@@ -45,5 +54,16 @@ public class CartData
     public void setItems(List<CartItem> items)
     {
         this.items = items;
+    }
+
+
+    @Override
+    public String toString()
+    {
+        return "CartData{" +
+            "id=" + id +
+            ", code='" + code + '\'' +
+            ", items=" + items +
+            '}';
     }
 }
