@@ -67,6 +67,19 @@ public class DefaultCartAppService implements CartAppService
     @Override
     public CartData getCartDate(String code)
     {
-        return cartRepository.findByCode(code).get(0).generateSnapshot();
+        List<Cart> carts = cartRepository.findByCode(code);
+        if (carts.size() == 0) {
+            return null;
+        }
+
+        return carts.get(0).generateSnapshot();
+    }
+
+
+    @Override
+    public void updateCartDate(String code, CartData data)
+    {
+        Cart cart = cartRepository.findByCode(code).get(0);
+        cart.updateAttributes(data);
     }
 }

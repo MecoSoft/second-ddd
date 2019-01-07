@@ -16,6 +16,7 @@ import com.mecosoft.poc.ddd.second.help.annotation.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 
 @Transactional
@@ -39,7 +40,12 @@ public class DefaultProductAppService implements ProductAppService
     @Override
     public ProductData getProductDate(String code)
     {
-        return productRepository.findByCode(code).get(0).generateSnapshot();
+        List<Product> products = productRepository.findByCode(code);
+        if (products.size() == 0) {
+            return null;
+        }
+
+        return products.get(0).generateSnapshot();
     }
 
 

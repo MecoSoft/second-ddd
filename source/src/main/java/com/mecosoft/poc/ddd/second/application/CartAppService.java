@@ -14,4 +14,6 @@ public interface CartAppService
     void addProductToCart(String cartCode, String productCode, int quantity);
 
     CartData getCartDate(final String code);
+
+    void updateCartDate(final String code, final CartData data);
 }

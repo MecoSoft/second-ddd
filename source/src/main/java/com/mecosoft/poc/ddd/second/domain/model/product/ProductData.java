@@ -52,4 +52,15 @@ public class ProductData
     {
         this.code = code;
     }
+
+
+    @Override
+    public String toString()
+    {
+        return "ProductData{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", code='" + code + '\'' +
+            '}';
+    }
 }

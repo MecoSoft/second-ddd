@@ -55,4 +55,15 @@ public class CartData
     {
         this.items = items;
     }
+
+
+    @Override
+    public String toString()
+    {
+        return "CartData{" +
+            "id=" + id +
+            ", code='" + code + '\'' +
+            ", items=" + items +
+            '}';
+    }
 }
