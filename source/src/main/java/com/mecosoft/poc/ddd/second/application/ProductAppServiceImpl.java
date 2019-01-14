@@ -10,7 +10,7 @@ package com.mecosoft.poc.ddd.second.application;
 
 
 import com.mecosoft.poc.ddd.second.domain.model.product.Product;
-import com.mecosoft.poc.ddd.second.domain.model.product.ProductData;
+import com.mecosoft.poc.ddd.second.domain.model.product.ProductModel;
 import com.mecosoft.poc.ddd.second.domain.model.product.ProductRepository;
 import com.mecosoft.poc.ddd.second.help.annotation.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,38 +21,36 @@ import java.util.List;
 
 @Transactional
 @ApplicationService
-public class DefaultProductAppService implements ProductAppService
+public class ProductAppServiceImpl implements ProductAppService
 {
     @Autowired
     private ProductRepository productRepository;
 
 
     @Override
-    public ProductData defineNewProduct(final String code, final String name)
+    public ProductModel defineNewProduct(final String code, final String name)
     {
         Product product = new Product(code, name);
-        productRepository.save(product);
-
-        return product.generateSnapshot();
+        return productRepository.save(product).generateModelSnapshot();
     }
 
 
     @Override
-    public ProductData getProductDate(String code)
+    public ProductModel getProductDate(String code)
     {
         List<Product> products = productRepository.findByCode(code);
         if (products.size() == 0) {
             return null;
         }
 
-        return products.get(0).generateSnapshot();
+        return products.get(0).generateModelSnapshot();
     }
 
 
     @Override
-    public void updateProductDate(String code, ProductData data)
+    public void updateProductModel(String code, ProductModel model)
     {
         Product product = productRepository.findByCode(code).get(0);
-        product.updateAttributes(data);
+        product.updateModel(model);
     }
 }

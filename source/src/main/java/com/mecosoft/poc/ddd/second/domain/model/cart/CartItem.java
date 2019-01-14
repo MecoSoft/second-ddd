@@ -10,52 +10,22 @@ package com.mecosoft.poc.ddd.second.domain.model.cart;
 
 
 import com.mecosoft.poc.ddd.second.domain.model.product.Product;
-import com.mecosoft.poc.ddd.second.help.annotation.EntityBase;
+import com.mecosoft.poc.ddd.second.help.EntityBase;
 
 import javax.persistence.*;
 
 
 @Entity
-public class CartItem implements EntityBase<CartItemData>
+public class CartItem extends EntityBase<Long, CartItemModel>
 {
-    @Id
-    @GeneratedValue
-    protected Long id;
-
-    @ManyToOne(optional = false)
-    protected Product product;
-
-    @Column(nullable = false)
-    protected int quantity;
-
-
     public CartItem()
     {}
 
 
     public CartItem(final Product product, int quantity)
     {
-        this.product = product;
-        this.quantity = quantity;
-    }
-
-
-    @Override
-    public CartItemData generateSnapshot()
-    {
-        CartItemData data = new CartItemData();
-        data.setId(id);
-        data.setQuantity(quantity);
-        data.setProduct(product);
-
-        return data;
-    }
-
-
-    @Override
-    public void updateAttributes(CartItemData data)
-    {
-        product = data.getProduct();
-        quantity = data.getQuantity();
+        model = new CartItemModel();
+        model.setProduct(product);
+        model.setQuantity(quantity);
     }
 }

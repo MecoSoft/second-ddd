@@ -9,52 +9,22 @@
 package com.mecosoft.poc.ddd.second.domain.model.product;
 
 
-import com.mecosoft.poc.ddd.second.help.annotation.EntityBase;
+import com.mecosoft.poc.ddd.second.help.EntityBase;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 
 
 @Entity
-public class Product implements EntityBase<ProductData>
+public class Product extends EntityBase<Long, ProductModel>
 {
-    @Id
-    @GeneratedValue
-    protected Long id;
-
-    @Column(nullable = false)
-    protected String name;
-
-    @Column(nullable = false)
-    protected String code;
-
-
     public Product()
     {}
 
 
     public Product(final String code, final String name)
     {
-        this.code = code;
-        this.name = name;
-    }
-
-
-    @Override
-    public ProductData generateSnapshot()
-    {
-        ProductData data = new ProductData();
-        data.setId(id);
-        data.setCode(code);
-        data.setName(name);
-
-        return data;
-    }
-
-
-    @Override
-    public void updateAttributes(ProductData data)
-    {
-        name = data.getName();
-        code = data.getCode();
+        model = new ProductModel();
+        model.setCode(code);
+        model.setName(name);
     }
 }

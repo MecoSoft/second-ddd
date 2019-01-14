@@ -10,60 +10,63 @@ package com.mecosoft.poc.ddd.second.domain.model.cart;
 
 
 import com.mecosoft.poc.ddd.second.domain.model.product.Product;
-import com.mecosoft.poc.ddd.second.help.annotation.EntityBase;
+import com.mecosoft.poc.ddd.second.domain.model.product.ProductModel;
+import com.mecosoft.poc.ddd.second.help.EntityBase;
+import org.apache.commons.collections.CollectionUtils;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import javax.validation.constraints.Max;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
 
 
 @Entity
-public class Cart implements EntityBase<CartData>
+public class Cart extends EntityBase<Long, CartModel>
 {
-    @Id
-    @GeneratedValue
-    protected Long id;
-
-    @Column(nullable = false)
-    protected String code;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    protected List<CartItem> items = new ArrayList<>();
-
-
     public Cart()
     {}
 
 
     public Cart(final String code)
     {
-        this.code = code;
+        model = new CartModel();
+        model.setCode(code);
     }
 
 
     public void add(Product product, int quantity)
     {
         CartItem cartItem = new CartItem(product, quantity);
-        items.add(cartItem);
+        model.getItems().add(cartItem);
+    }
+
+
+    public void remove(Product product)
+    {
+        CartModel model = super.generateModelSnapshot();
+
+        for (CartItem item : model.getItems())
+        {
+            String itemProdCode = item.generateModelSnapshot().getProduct().generateModelSnapshot().getCode();
+            String prodCode = product.generateModelSnapshot().getCode();
+            if (itemProdCode.equalsIgnoreCase(prodCode))
+            {
+                model.getItems().remove(item);
+            }
+        }
     }
 
 
     @Override
-    public CartData generateSnapshot()
+    public CartModel generateModelSnapshot()
     {
-        CartData data = new CartData();
-        data.setId(id);
-        data.setCode(code);
-        data.setItems(items);
+        CartModel model = super.generateModelSnapshot();
 
-        return data;
-    }
+        List<CartItem> items = new ArrayList<>();
+        CollectionUtils.addAll(items, model.getItems().iterator());
+        model.setItems(items);
 
-
-    @Override
-    public void updateAttributes(CartData data)
-    {
-        code = data.getCode();
-        items = data.getItems();
+        return model;
     }
 }

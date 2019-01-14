@@ -9,28 +9,22 @@
 package com.mecosoft.poc.ddd.second.domain.model.cart;
 
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class CartData
+@Embeddable
+public class CartModel
 {
-    protected Long id;
-
+    @Column(nullable = false)
     protected String code;
 
-    protected List<CartItem> items;
-
-
-    public Long getId()
-    {
-        return id;
-    }
-
-
-    protected void setId(Long id)
-    {
-        this.id = id;
-    }
+    @OneToMany(cascade = CascadeType.ALL)
+    protected List<CartItem> items = new ArrayList<>();
 
 
     public String getCode()
@@ -60,9 +54,8 @@ public class CartData
     @Override
     public String toString()
     {
-        return "CartData{" +
-            "id=" + id +
-            ", code='" + code + '\'' +
+        return "CartModel{" +
+            "code='" + code + '\'' +
             ", items=" + items +
             '}';
     }

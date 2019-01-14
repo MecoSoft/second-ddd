@@ -17,6 +17,6 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long>
 {
-    //@Query("SELECT p FROM Product p WHERE p.data.code = :code")
+    @Query("SELECT p FROM Product p WHERE p.model.code = :code")
     List<Product> findByCode(String code);
 }

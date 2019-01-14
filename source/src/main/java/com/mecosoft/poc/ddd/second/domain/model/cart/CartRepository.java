@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface CartRepository extends JpaRepository<Cart, Long>
 {
-    //@Query("SELECT c FROM Cart c WHERE c.data.code = :code")
+    @Query("SELECT c FROM Cart c WHERE c.model.code = :code")
     List<Cart> findByCode(String code);
 }
