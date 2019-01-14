@@ -10,7 +10,8 @@ package com.mecosoft.poc.ddd.second.application;
 
 
 import com.mecosoft.poc.ddd.second.domain.model.cart.Cart;
-import com.mecosoft.poc.ddd.second.domain.model.cart.CartData;
+import com.mecosoft.poc.ddd.second.domain.model.cart.CartItem;
+import com.mecosoft.poc.ddd.second.domain.model.cart.CartModel;
 import com.mecosoft.poc.ddd.second.domain.model.cart.CartRepository;
 import com.mecosoft.poc.ddd.second.domain.model.product.Product;
 import com.mecosoft.poc.ddd.second.domain.model.product.ProductRepository;
@@ -23,7 +24,7 @@ import java.util.List;
 
 @Transactional
 @ApplicationService
-public class DefaultCartAppService implements CartAppService
+public class CartAppServiceImpl implements CartAppService
 {
     @Autowired
     private ProductRepository productRepository;
@@ -33,12 +34,12 @@ public class DefaultCartAppService implements CartAppService
 
 
     @Override
-    public CartData defineNewCart(final String code)
+    public CartModel defineNewCart(final String code)
     {
         Cart cart = new Cart(code);
         cartRepository.save(cart);
 
-        return cart.generateSnapshot();
+        return cart.generateModelSnapshot();
     }
 
 
@@ -65,21 +66,46 @@ public class DefaultCartAppService implements CartAppService
 
 
     @Override
-    public CartData getCartDate(String code)
+    public void removeProductFromCart(String cartCode, String productCode)
+    {
+        List<Product> products = productRepository.findByCode(productCode);
+        if (products.isEmpty()) {
+            return;
+        }
+
+        Product product = products.get(0);
+
+        List<Cart> carts = cartRepository.findByCode(cartCode);
+        if (carts.isEmpty())
+        {
+            return;
+        }
+
+        Cart cart = carts.get(0);
+        cart.remove(product);
+        cartRepository.save(cart);
+    }
+
+
+    @Override
+    public CartModel getCartDate(String code)
     {
         List<Cart> carts = cartRepository.findByCode(code);
         if (carts.size() == 0) {
             return null;
         }
 
-        return carts.get(0).generateSnapshot();
+        List<CartItem> items = carts.get(0).generateModelSnapshot().getItems();
+        items.clear();
+
+        return carts.get(0).generateModelSnapshot();
     }
 
 
     @Override
-    public void updateCartDate(String code, CartData data)
+    public void updateCartDate(String code, CartModel model)
     {
         Cart cart = cartRepository.findByCode(code).get(0);
-        cart.updateAttributes(data);
+        cart.updateModel(model);
     }
 }

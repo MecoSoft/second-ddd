@@ -11,26 +11,19 @@ package com.mecosoft.poc.ddd.second.domain.model.cart;
 
 import com.mecosoft.poc.ddd.second.domain.model.product.Product;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 
-public class CartItemData
+
+@Embeddable
+public class CartItemModel
 {
-    protected Long id;
-
+    @ManyToOne(optional = false)
     protected Product product;
 
+    @Column(nullable = false)
     protected int quantity;
-
-
-    public Long getId()
-    {
-        return id;
-    }
-
-
-    protected void setId(Long id)
-    {
-        this.id = id;
-    }
 
 
     public Product getProduct()
@@ -54,5 +47,15 @@ public class CartItemData
     public void setQuantity(int quantity)
     {
         this.quantity = quantity;
+    }
+
+
+    @Override
+    public String toString()
+    {
+        return "CartItemModel{" +
+            "product=" + product +
+            ", quantity=" + quantity +
+            '}';
     }
 }

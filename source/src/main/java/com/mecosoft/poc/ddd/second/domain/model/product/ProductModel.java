@@ -9,25 +9,18 @@
 package com.mecosoft.poc.ddd.second.domain.model.product;
 
 
-public class ProductData
-{
-    protected Long id;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
+
+@Embeddable
+public class ProductModel
+{
+    @Column(nullable = false)
     protected String name;
 
+    @Column(nullable = false)
     protected String code;
-
-
-    public Long getId()
-    {
-        return id;
-    }
-
-
-    protected void setId(Long id)
-    {
-        this.id = id;
-    }
 
 
     public String getName()
@@ -57,9 +50,8 @@ public class ProductData
     @Override
     public String toString()
     {
-        return "ProductData{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
+        return "ProductModel{" +
+            "name='" + name + '\'' +
             ", code='" + code + '\'' +
             '}';
     }

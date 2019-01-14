@@ -10,18 +10,15 @@ package com.mecosoft.poc.ddd.second.presentation;
 
 import com.mecosoft.poc.ddd.second.application.CartAppService;
 import com.mecosoft.poc.ddd.second.application.ProductAppService;
-import com.mecosoft.poc.ddd.second.domain.model.cart.Cart;
-import com.mecosoft.poc.ddd.second.domain.model.cart.CartData;
 import com.mecosoft.poc.ddd.second.domain.model.cart.CartItem;
-import com.mecosoft.poc.ddd.second.domain.model.product.Product;
-import com.mecosoft.poc.ddd.second.domain.model.product.ProductData;
+import com.mecosoft.poc.ddd.second.domain.model.cart.CartModel;
+import com.mecosoft.poc.ddd.second.domain.model.product.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -55,7 +52,7 @@ public class Example
             suffix++;
         } while (productAppService.getProductDate(PRODUCT_CODE + suffix) != null);
 
-        ProductData productData = productAppService.defineNewProduct(PRODUCT_CODE + suffix, PRODUCT_NAME);
+        ProductModel productData = productAppService.defineNewProduct(PRODUCT_CODE + suffix, PRODUCT_NAME);
 
         return "New product defined: " + productData;
     }
@@ -69,7 +66,7 @@ public class Example
             suffix++;
         } while (cartAppService.getCartDate(CART_CODE + suffix) != null);
 
-        CartData cartDataNew = cartAppService.defineNewCart(CART_CODE + suffix);
+        CartModel cartDataNew = cartAppService.defineNewCart(CART_CODE + suffix);
 
         return "New cart defined: " + cartDataNew;
     }
@@ -86,7 +83,7 @@ public class Example
         String cartContent = "Cart contains '" + items.size() + "' items: ";
         for (CartItem item : items)
         {
-            String code = item.generateSnapshot().getProduct().generateSnapshot().getCode();
+            String code = item.generateModelSnapshot().getProduct().generateModelSnapshot().getCode();
             cartContent += "'" + code + "', ";
         }
 
@@ -102,15 +99,7 @@ public class Example
     @RequestMapping("/removeProdFromCart/{cartCode}/{prodCode}")
     String removeProdFromCart(@PathVariable("cartCode") String cartCode, @PathVariable("prodCode") String prodCode)
     {
-        CartData cartData = cartAppService.getCartDate(cartCode);
-        CartItem item = cartData.getItems().stream()
-            .filter(p -> p.generateSnapshot().getProduct().generateSnapshot().getCode().equalsIgnoreCase(prodCode))
-            .findFirst()
-            .get();
-
-        List<CartItem> items = cartData.getItems();
-        items.remove(item);
-        cartAppService.updateCartDate(cartCode, cartData);
+        cartAppService.removeProductFromCart(cartCode, prodCode);
 
         return "Ok";
     }
@@ -128,10 +117,10 @@ public class Example
     @RequestMapping("/renameProdCode/{oldProdCode}/{newProdCode}")
     String changeProdCode(@PathVariable("oldProdCode") String oldProdCode, @PathVariable("newProdCode") String newProdCode)
     {
-        ProductData data = productAppService.getProductDate(oldProdCode);
-        data.setCode(newProdCode);
+        ProductModel model = productAppService.getProductDate(oldProdCode);
+        model.setCode(newProdCode);
 
-        productAppService.updateProductDate(oldProdCode, data);
+        productAppService.updateProductModel(oldProdCode, model);
         return "Ok";
     }
 }
