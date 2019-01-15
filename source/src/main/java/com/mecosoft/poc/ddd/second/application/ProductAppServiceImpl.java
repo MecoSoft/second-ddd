@@ -28,22 +28,26 @@ public class ProductAppServiceImpl implements ProductAppService
 
 
     @Override
-    public ProductModel defineNewProduct(final String code, final String name)
+    public ProductDTO defineNewProduct(final String code, final String name)
     {
         Product product = new Product(code, name);
-        return productRepository.save(product).generateModelSnapshot();
+        ProductModel productModel = productRepository.save(product).generateModelSnapshot();
+
+        return new ProductDTO(productModel);
     }
 
 
     @Override
-    public ProductModel getProductDate(String code)
+    public ProductDTO getProductDate(String code)
     {
         List<Product> products = productRepository.findByCode(code);
         if (products.size() == 0) {
             return null;
         }
 
-        return products.get(0).generateModelSnapshot();
+        ProductModel productModel = products.get(0).generateModelSnapshot();
+
+        return new ProductDTO(productModel);
     }
 
 

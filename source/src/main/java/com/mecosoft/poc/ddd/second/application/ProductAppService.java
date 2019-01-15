@@ -4,14 +4,16 @@ package com.mecosoft.poc.ddd.second.application;
 import com.mecosoft.poc.ddd.second.domain.model.product.ProductModel;
 
 
+// TODO: Warstwa aplikacji musi zwrocic DTO
+
 /**
  * Service responsible for handling products.
  */
 public interface ProductAppService
 {
-    ProductModel defineNewProduct(final String code, final String name);
+    ProductDTO defineNewProduct(final String code, final String name);
 
-    ProductModel getProductDate(final String code);
+    ProductDTO getProductDate(final String code);
 
     void updateProductModel(final String code, final ProductModel model);
 }
