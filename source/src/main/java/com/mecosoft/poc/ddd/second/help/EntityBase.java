@@ -59,12 +59,6 @@ public abstract class EntityBase<P extends Serializable, M>
     }
 
 
-    protected void setId(P id)
-    {
-        this.id = id;
-    }
-
-
     protected M getModel()
     {
         return model;

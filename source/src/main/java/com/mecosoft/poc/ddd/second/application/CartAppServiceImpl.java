@@ -34,12 +34,12 @@ public class CartAppServiceImpl implements CartAppService
 
 
     @Override
-    public CartModel defineNewCart(final String code)
+    public CartDTO defineNewCart(final String code)
     {
         Cart cart = new Cart(code);
-        cartRepository.save(cart);
+        CartModel cartModel = cartRepository.save(cart).generateModelSnapshot();
 
-        return cart.generateModelSnapshot();
+        return new CartDTO(cartModel);
     }
 
 
@@ -88,17 +88,16 @@ public class CartAppServiceImpl implements CartAppService
 
 
     @Override
-    public CartModel getCartDate(String code)
+    public CartDTO getCartDate(String code)
     {
         List<Cart> carts = cartRepository.findByCode(code);
         if (carts.size() == 0) {
             return null;
         }
 
-        List<CartItem> items = carts.get(0).generateModelSnapshot().getItems();
-        items.clear();
+        CartModel cartModel = carts.get(0).generateModelSnapshot();
 
-        return carts.get(0).generateModelSnapshot();
+        return new CartDTO(cartModel);
     }
 
 

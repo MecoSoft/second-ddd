@@ -8,8 +8,7 @@
 
 package com.mecosoft.poc.ddd.second.presentation;
 
-import com.mecosoft.poc.ddd.second.application.CartAppService;
-import com.mecosoft.poc.ddd.second.application.ProductAppService;
+import com.mecosoft.poc.ddd.second.application.*;
 import com.mecosoft.poc.ddd.second.domain.model.cart.CartItem;
 import com.mecosoft.poc.ddd.second.domain.model.cart.CartModel;
 import com.mecosoft.poc.ddd.second.domain.model.product.ProductModel;
@@ -52,9 +51,9 @@ public class Example
             suffix++;
         } while (productAppService.getProductDate(PRODUCT_CODE + suffix) != null);
 
-        ProductModel productData = productAppService.defineNewProduct(PRODUCT_CODE + suffix, PRODUCT_NAME);
+        ProductDTO productDto = productAppService.defineNewProduct(PRODUCT_CODE + suffix, PRODUCT_NAME);
 
-        return "New product defined: " + productData;
+        return "New product defined: " + productDto;
     }
 
 
@@ -66,7 +65,7 @@ public class Example
             suffix++;
         } while (cartAppService.getCartDate(CART_CODE + suffix) != null);
 
-        CartModel cartDataNew = cartAppService.defineNewCart(CART_CODE + suffix);
+        CartDTO cartDataNew = cartAppService.defineNewCart(CART_CODE + suffix);
 
         return "New cart defined: " + cartDataNew;
     }
@@ -78,12 +77,12 @@ public class Example
     @RequestMapping("/displayCart/{cartCode}")
     String displayCart(@PathVariable("cartCode") String cartCode)
     {
-        List<CartItem> items = cartAppService.getCartDate(cartCode).getItems();
+        List<CartItemDTO> items = cartAppService.getCartDate(cartCode).getItems();
 
         String cartContent = "Cart contains '" + items.size() + "' items: ";
-        for (CartItem item : items)
+        for (CartItemDTO item : items)
         {
-            String code = item.generateModelSnapshot().getProduct().generateModelSnapshot().getCode();
+            String code = item.getProduct().getCode();
             cartContent += "'" + code + "', ";
         }
 
@@ -99,7 +98,12 @@ public class Example
     @RequestMapping("/removeProdFromCart/{cartCode}/{prodCode}")
     String removeProdFromCart(@PathVariable("cartCode") String cartCode, @PathVariable("prodCode") String prodCode)
     {
-        cartAppService.removeProductFromCart(cartCode, prodCode);
+        /*
+         * Remove product from a cart by use CartData, not by command for testing purpose.
+         */
+        // cartAppService.removeProductFromCart(cartCode, prodCode);
+
+
 
         return "Ok";
     }
@@ -117,10 +121,10 @@ public class Example
     @RequestMapping("/renameProdCode/{oldProdCode}/{newProdCode}")
     String changeProdCode(@PathVariable("oldProdCode") String oldProdCode, @PathVariable("newProdCode") String newProdCode)
     {
-        ProductModel model = productAppService.getProductDate(oldProdCode);
-        model.setCode(newProdCode);
+        ProductDTO productDto = productAppService.getProductDate(oldProdCode);
+        productDto.setCode(newProdCode);
 
-        productAppService.updateProductModel(oldProdCode, model);
+        //productAppService.updateProductModel(oldProdCode, model);
         return "Ok";
     }
 }
