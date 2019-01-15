@@ -25,7 +25,7 @@ public class CartItemDTO
 
     public CartItemDTO(CartItemModel model)
     {
-        this.product = new ProductDTO(model.getProduct().generateModelSnapshot());
+        this.product = new ProductDTO(model.getProduct().getModel());
         this.quantity = model.getQuantity();
     }
 

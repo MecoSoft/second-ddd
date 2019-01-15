@@ -10,52 +10,19 @@ package com.mecosoft.poc.ddd.second.domain.model.cart;
 
 
 import com.mecosoft.poc.ddd.second.domain.model.product.Product;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 
-
+@Data
 @Embeddable
 public class CartItemModel
 {
     @ManyToOne(optional = false)
-    protected Product product;
+    private Product product;
 
     @Column(nullable = false)
-    protected int quantity;
-
-
-    public Product getProduct()
-    {
-        return product;
-    }
-
-
-    public void setProduct(Product product)
-    {
-        this.product = product;
-    }
-
-
-    public int getQuantity()
-    {
-        return quantity;
-    }
-
-
-    public void setQuantity(int quantity)
-    {
-        this.quantity = quantity;
-    }
-
-
-    @Override
-    public String toString()
-    {
-        return "CartItemModel{" +
-            "product=" + product +
-            ", quantity=" + quantity +
-            '}';
-    }
+    private int quantity;
 }

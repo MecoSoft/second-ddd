@@ -37,7 +37,7 @@ public class CartAppServiceImpl implements CartAppService
     public CartDTO defineNewCart(final String code)
     {
         Cart cart = new Cart(code);
-        CartModel cartModel = cartRepository.save(cart).generateModelSnapshot();
+        CartModel cartModel = cartRepository.save(cart).getModel();
 
         return new CartDTO(cartModel);
     }
@@ -95,9 +95,7 @@ public class CartAppServiceImpl implements CartAppService
             return null;
         }
 
-        CartModel cartModel = carts.get(0).generateModelSnapshot();
-
-        return new CartDTO(cartModel);
+        return new CartDTO(carts.get(0).getModel());
     }
 
 
@@ -105,6 +103,6 @@ public class CartAppServiceImpl implements CartAppService
     public void updateCartDate(String code, CartModel model)
     {
         Cart cart = cartRepository.findByCode(code).get(0);
-        cart.updateModel(model);
+        cart.setModel(model);
     }
 }

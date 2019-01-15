@@ -118,6 +118,9 @@ public class Example
     }
 
 
+    /*
+     * Update product by use model access, not by command for testing purpose.
+     */
     @RequestMapping("/renameProdCode/{oldProdCode}/{newProdCode}")
     String changeProdCode(@PathVariable("oldProdCode") String oldProdCode, @PathVariable("newProdCode") String newProdCode)
     {

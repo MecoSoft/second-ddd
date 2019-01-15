@@ -33,7 +33,7 @@ public class CartDTO
 
         for (CartItem item : model.getItems())
         {
-            this.items.add(new CartItemDTO(item.generateModelSnapshot()));
+            this.items.add(new CartItemDTO(item.getModel()));
         }
     }
 

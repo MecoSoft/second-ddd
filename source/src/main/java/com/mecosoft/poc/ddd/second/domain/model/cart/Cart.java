@@ -44,29 +44,14 @@ public class Cart extends EntityBase<Long, CartModel>
 
     public void remove(Product product)
     {
-        CartModel model = super.generateModelSnapshot();
-
-        for (CartItem item : model.getItems())
+        for (CartItem item : getModel().getItems())
         {
-            String itemProdCode = item.generateModelSnapshot().getProduct().generateModelSnapshot().getCode();
-            String prodCode = product.generateModelSnapshot().getCode();
+            String itemProdCode = item.getModel().getProduct().getModel().getCode();
+            String prodCode = product.getModel().getCode();
             if (itemProdCode.equalsIgnoreCase(prodCode))
             {
-                model.getItems().remove(item);
+                getModel().getItems().remove(item);
             }
         }
-    }
-
-
-    @Override
-    public CartModel generateModelSnapshot()
-    {
-        CartModel model = super.generateModelSnapshot();
-
-        List<CartItem> items = new ArrayList<>();
-        CollectionUtils.addAll(items, model.getItems().iterator());
-        model.setItems(items);
-
-        return model;
     }
 }

@@ -31,7 +31,7 @@ public class ProductAppServiceImpl implements ProductAppService
     public ProductDTO defineNewProduct(final String code, final String name)
     {
         Product product = new Product(code, name);
-        ProductModel productModel = productRepository.save(product).generateModelSnapshot();
+        ProductModel productModel = productRepository.save(product).getModel();
 
         return new ProductDTO(productModel);
     }
@@ -45,7 +45,7 @@ public class ProductAppServiceImpl implements ProductAppService
             return null;
         }
 
-        ProductModel productModel = products.get(0).generateModelSnapshot();
+        ProductModel productModel = products.get(0).getModel();
 
         return new ProductDTO(productModel);
     }
@@ -55,6 +55,6 @@ public class ProductAppServiceImpl implements ProductAppService
     public void updateProductModel(String code, ProductModel model)
     {
         Product product = productRepository.findByCode(code).get(0);
-        product.updateModel(model);
+        product.setModel(model);
     }
 }

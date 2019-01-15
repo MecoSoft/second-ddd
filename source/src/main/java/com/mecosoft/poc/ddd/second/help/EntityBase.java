@@ -9,8 +9,6 @@
 package com.mecosoft.poc.ddd.second.help;
 
 
-import org.apache.commons.beanutils.BeanUtils;
-
 import javax.persistence.Embedded;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -29,43 +27,19 @@ public abstract class EntityBase<P extends Serializable, M>
     protected M model;
 
 
-    public M generateModelSnapshot()
-    {
-        try {
-            return (M)BeanUtils.cloneBean(getModel());
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-
-    public void updateModel(M model)
-    {
-        try {
-            BeanUtils.copyProperties(getModel(), model);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
     protected P getId()
     {
         return id;
     }
 
 
-    protected M getModel()
+    public M getModel()
     {
         return model;
     }
 
 
-    protected void setModel(M model)
+    public void setModel(M model)
     {
         this.model = model;
     }

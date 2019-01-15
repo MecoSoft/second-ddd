@@ -9,50 +9,19 @@
 package com.mecosoft.poc.ddd.second.domain.model.product;
 
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 
+@Data
 @Embeddable
 public class ProductModel
 {
     @Column(nullable = false)
-    protected String name;
+    private String name;
 
     @Column(nullable = false)
-    protected String code;
-
-
-    public String getName()
-    {
-        return name;
-    }
-
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-
-    public String getCode()
-    {
-        return code;
-    }
-
-
-    public void setCode(String code)
-    {
-        this.code = code;
-    }
-
-
-    @Override
-    public String toString()
-    {
-        return "ProductModel{" +
-            "name='" + name + '\'' +
-            ", code='" + code + '\'' +
-            '}';
-    }
+    private String code;
 }
