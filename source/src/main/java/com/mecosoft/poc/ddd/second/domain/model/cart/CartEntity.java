@@ -9,22 +9,37 @@
 package com.mecosoft.poc.ddd.second.domain.model.cart;
 
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.OneToMany;
+import com.mecosoft.poc.ddd.second.help.Identifiable;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
-@Embeddable
-public class CartModel
+@Entity
+public class CartEntity implements Identifiable<Long>
 {
+    @Id
+    @GeneratedValue
+    private Long id;
+
     @Column(nullable = false)
-    protected String code;
+    private String code;
 
     @OneToMany(cascade = CascadeType.ALL)
-    protected List<CartItem> items = new ArrayList<>();
+    private List<CartItemEntity> items = new ArrayList<>();
+
+
+    public Long getId()
+    {
+        return id;
+    }
+
+
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
 
 
     public String getCode()
@@ -39,24 +54,26 @@ public class CartModel
     }
 
 
-    public List<CartItem> getItems()
+    public List<CartItemEntity> getItems()
     {
         return items;
     }
 
 
-    public void setItems(List<CartItem> items)
+    public void setItems(List<CartItemEntity> items)
     {
         this.items = items;
     }
 
 
-    @Override
-    public String toString()
+    public void addItem(CartItemEntity item)
     {
-        return "CartModel{" +
-            "code='" + code + '\'' +
-            ", items=" + items +
-            '}';
+        items.add(item);
+    }
+
+
+    public void removeItem(CartItemEntity item)
+    {
+        items.remove(item);
     }
 }

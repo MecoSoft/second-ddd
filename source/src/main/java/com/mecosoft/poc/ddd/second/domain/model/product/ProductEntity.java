@@ -9,18 +9,38 @@
 package com.mecosoft.poc.ddd.second.domain.model.product;
 
 
+import com.mecosoft.poc.ddd.second.help.Identifiable;
+
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 
-@Embeddable
-public class ProductModel
+@Entity
+public class ProductEntity implements Identifiable<Long>
 {
-    @Column(nullable = false)
-    protected String name;
+    @Id
+    @GeneratedValue
+    private Long id;
 
     @Column(nullable = false)
-    protected String code;
+    private String name;
+
+    @Column(nullable = false)
+    private String code;
+
+
+    public Long getId()
+    {
+        return id;
+    }
+
+
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
 
 
     public String getName()
@@ -44,15 +64,5 @@ public class ProductModel
     public void setCode(String code)
     {
         this.code = code;
-    }
-
-
-    @Override
-    public String toString()
-    {
-        return "ProductModel{" +
-            "name='" + name + '\'' +
-            ", code='" + code + '\'' +
-            '}';
     }
 }

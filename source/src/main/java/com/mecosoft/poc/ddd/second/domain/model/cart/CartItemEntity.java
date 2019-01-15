@@ -10,20 +10,35 @@ package com.mecosoft.poc.ddd.second.domain.model.cart;
 
 
 import com.mecosoft.poc.ddd.second.domain.model.product.Product;
+import com.mecosoft.poc.ddd.second.help.Identifiable;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 
-@Embeddable
-public class CartItemModel
+@Entity
+public class CartItemEntity implements Identifiable<Long>
 {
+    @Id
+    @GeneratedValue
+    private Long id;
+
     @ManyToOne(optional = false)
-    protected Product product;
+    private Product product;
 
     @Column(nullable = false)
-    protected int quantity;
+    private int quantity;
+
+
+    public Long getId()
+    {
+        return id;
+    }
+
+
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
 
 
     public Product getProduct()
@@ -47,15 +62,5 @@ public class CartItemModel
     public void setQuantity(int quantity)
     {
         this.quantity = quantity;
-    }
-
-
-    @Override
-    public String toString()
-    {
-        return "CartItemModel{" +
-            "product=" + product +
-            ", quantity=" + quantity +
-            '}';
     }
 }

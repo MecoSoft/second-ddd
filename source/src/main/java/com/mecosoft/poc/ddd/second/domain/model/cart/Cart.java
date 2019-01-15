@@ -10,28 +10,18 @@ package com.mecosoft.poc.ddd.second.domain.model.cart;
 
 
 import com.mecosoft.poc.ddd.second.domain.model.product.Product;
-import com.mecosoft.poc.ddd.second.domain.model.product.ProductModel;
-import com.mecosoft.poc.ddd.second.help.EntityBase;
+import com.mecosoft.poc.ddd.second.help.BusinessObject;
 import org.apache.commons.collections.CollectionUtils;
 
-import javax.persistence.*;
-import javax.validation.constraints.Max;
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
 
-@Entity
-public class Cart extends EntityBase<Long, CartModel>
+public class Cart extends BusinessObject<CartEntity, Long>
 {
-    public Cart()
-    {}
-
-
-    public Cart(final String code)
+    public Cart(CartEntity entity)
     {
-        model = new CartModel();
-        model.setCode(code);
+        super(entity);
     }
 
 
@@ -44,6 +34,8 @@ public class Cart extends EntityBase<Long, CartModel>
 
     public void remove(Product product)
     {
+        CartEntity cartEntity = new CartEntity();
+
         CartModel model = super.generateModelSnapshot();
 
         for (CartItem item : model.getItems())

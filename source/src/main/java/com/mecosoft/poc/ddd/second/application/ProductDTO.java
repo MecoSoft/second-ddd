@@ -9,9 +9,6 @@
 package com.mecosoft.poc.ddd.second.application;
 
 
-import com.mecosoft.poc.ddd.second.domain.model.product.ProductModel;
-
-
 public class ProductDTO
 {
     protected String name;

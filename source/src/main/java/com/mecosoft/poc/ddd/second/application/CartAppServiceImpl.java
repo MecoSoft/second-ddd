@@ -10,8 +10,6 @@ package com.mecosoft.poc.ddd.second.application;
 
 
 import com.mecosoft.poc.ddd.second.domain.model.cart.Cart;
-import com.mecosoft.poc.ddd.second.domain.model.cart.CartItem;
-import com.mecosoft.poc.ddd.second.domain.model.cart.CartModel;
 import com.mecosoft.poc.ddd.second.domain.model.cart.CartRepository;
 import com.mecosoft.poc.ddd.second.domain.model.product.Product;
 import com.mecosoft.poc.ddd.second.domain.model.product.ProductRepository;

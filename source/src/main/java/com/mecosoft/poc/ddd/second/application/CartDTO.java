@@ -10,7 +10,6 @@ package com.mecosoft.poc.ddd.second.application;
 
 
 import com.mecosoft.poc.ddd.second.domain.model.cart.CartItem;
-import com.mecosoft.poc.ddd.second.domain.model.cart.CartModel;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,9 +9,6 @@
 package com.mecosoft.poc.ddd.second.presentation;
 
 import com.mecosoft.poc.ddd.second.application.*;
-import com.mecosoft.poc.ddd.second.domain.model.cart.CartItem;
-import com.mecosoft.poc.ddd.second.domain.model.cart.CartModel;
-import com.mecosoft.poc.ddd.second.domain.model.product.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

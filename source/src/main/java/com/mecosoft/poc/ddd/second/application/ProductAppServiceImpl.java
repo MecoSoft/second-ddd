@@ -10,7 +10,6 @@ package com.mecosoft.poc.ddd.second.application;
 
 
 import com.mecosoft.poc.ddd.second.domain.model.product.Product;
-import com.mecosoft.poc.ddd.second.domain.model.product.ProductModel;
 import com.mecosoft.poc.ddd.second.domain.model.product.ProductRepository;
 import com.mecosoft.poc.ddd.second.help.annotation.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;

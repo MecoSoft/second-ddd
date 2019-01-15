@@ -9,9 +9,6 @@
 package com.mecosoft.poc.ddd.second.application;
 
 
-import com.mecosoft.poc.ddd.second.domain.model.cart.CartItemModel;
-
-
 public class CartItemDTO
 {
     protected ProductDTO product;

@@ -9,23 +9,13 @@
 package com.mecosoft.poc.ddd.second.domain.model.cart;
 
 
-import com.mecosoft.poc.ddd.second.domain.model.product.Product;
-import com.mecosoft.poc.ddd.second.help.EntityBase;
-
-import javax.persistence.*;
+import com.mecosoft.poc.ddd.second.help.BusinessObject;
 
 
-@Entity
-public class CartItem extends EntityBase<Long, CartItemModel>
+public class CartItem extends BusinessObject<CartItemEntity, Long>
 {
-    public CartItem()
-    {}
-
-
-    public CartItem(final Product product, int quantity)
+    public CartItem(CartItemEntity entity)
     {
-        model = new CartItemModel();
-        model.setProduct(product);
-        model.setQuantity(quantity);
+        super(entity);
     }
 }

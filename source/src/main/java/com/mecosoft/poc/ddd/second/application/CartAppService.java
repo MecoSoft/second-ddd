@@ -1,9 +1,6 @@
 package com.mecosoft.poc.ddd.second.application;
 
 
-import com.mecosoft.poc.ddd.second.domain.model.cart.CartModel;
-
-
 /**
  * Service responsible for handling carts.
  */
