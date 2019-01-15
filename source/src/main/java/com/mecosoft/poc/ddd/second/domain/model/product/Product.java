@@ -9,22 +9,13 @@
 package com.mecosoft.poc.ddd.second.domain.model.product;
 
 
-import com.mecosoft.poc.ddd.second.help.EntityBase;
-
-import javax.persistence.Entity;
+import com.mecosoft.poc.ddd.second.help.BusinessObject;
 
 
-@Entity
-public class Product extends EntityBase<Long, ProductModel>
+public class Product extends BusinessObject<ProductEntity, Long, ProductRepository>
 {
-    public Product()
-    {}
-
-
-    public Product(final String code, final String name)
+    public Product(ProductEntity entity)
     {
-        model = new ProductModel();
-        model.setCode(code);
-        model.setName(name);
+        super(entity);
     }
 }
